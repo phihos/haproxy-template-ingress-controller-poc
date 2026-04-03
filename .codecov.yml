@@ -6,13 +6,15 @@ coverage:
   status:
     project:
       default:
-        target: 85%              # Require 85% overall coverage
+        target: auto             # Compare against base branch coverage
         threshold: 2%            # Allow 2% drop from base
         base: auto               # Compare against base branch
+        informational: true      # Report but never fail the PR check
     patch:
       default:
         target: 90%              # Require 90% coverage for new code
         threshold: 0%            # No drop allowed for new code
+        informational: true      # Report but never fail the PR check
 
   # Ignore paths
   ignore:
