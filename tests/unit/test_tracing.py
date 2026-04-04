@@ -112,9 +112,9 @@ def test_tracing_manager_initialization_enabled(
     assert manager._instrumented
 
 
-def test_jaeger_exporter_configuration(monkeypatch):
-    """Test Jaeger exporter configuration."""
-    config = TracingConfig(enabled=True, jaeger_endpoint="localhost:14268")
+def test_otlp_exporter_configuration(monkeypatch):
+    """Test OTLP exporter configuration."""
+    config = TracingConfig(enabled=True, jaeger_endpoint="localhost:4317")
     manager = TracingManager(config)
 
     # Setup mocks
@@ -123,19 +123,17 @@ def test_jaeger_exporter_configuration(monkeypatch):
     mock_tracer_provider.add_span_processor = MagicMock()
     mock_tracer_provider_cls = MagicMock(return_value=mock_tracer_provider)
     mock_batch_processor = MagicMock()
-    mock_jaeger_exporter = MagicMock()
+    mock_otlp_exporter = MagicMock()
 
     # Apply patches
     monkeypatch.setattr(tracing_module, "TracerProvider", mock_tracer_provider_cls)
     monkeypatch.setattr(tracing_module, "BatchSpanProcessor", mock_batch_processor)
-    monkeypatch.setattr(tracing_module, "JaegerExporter", mock_jaeger_exporter)
+    monkeypatch.setattr(tracing_module, "OTLPSpanExporter", mock_otlp_exporter)
 
     manager.initialize()
 
-    # Verify Jaeger exporter was configured
-    mock_jaeger_exporter.assert_called_once_with(
-        agent_host_name="localhost", agent_port=14268
-    )
+    # Verify OTLP exporter was configured
+    mock_otlp_exporter.assert_called_once_with(endpoint="localhost:4317", insecure=True)
     # Verify the span processor was added
     mock_tracer_provider.add_span_processor.assert_called_once()
 
