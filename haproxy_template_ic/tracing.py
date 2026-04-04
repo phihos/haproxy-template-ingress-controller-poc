@@ -15,7 +15,7 @@ from typing import Any, Awaitable, Callable, Iterator, TypeVar, cast
 
 import structlog
 from opentelemetry import trace
-from opentelemetry.exporter.jaeger.thrift import JaegerExporter
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
 from opentelemetry.instrumentation.asyncio import AsyncioInstrumentor
 from opentelemetry.instrumentation.httpx import HTTPXClientInstrumentor
 from opentelemetry.sdk.resources import Resource
@@ -121,27 +121,22 @@ class TracingManager:
             self.tracer_provider.add_span_processor(console_processor)
             logger.debug("Added console span exporter")
 
-        # Jaeger exporter for production
+        # OTLP exporter for production (e.g., Jaeger with OTLP support)
         if self.config.jaeger_endpoint:
-            self._setup_jaeger_exporter()
+            self._setup_otlp_exporter()
 
-    @handle_exceptions(logger=logger, context="jaeger exporter configuration")
-    def _setup_jaeger_exporter(self) -> None:
-        """Set up Jaeger exporter with error handling."""
+    @handle_exceptions(logger=logger, context="OTLP exporter configuration")
+    def _setup_otlp_exporter(self) -> None:
+        """Set up OTLP exporter with error handling."""
         if not self.config.jaeger_endpoint:
             return
 
-        jaeger_endpoint = self.config.jaeger_endpoint
-        jaeger_exporter = JaegerExporter(
-            agent_host_name=jaeger_endpoint.split(":")[0],
-            agent_port=int(jaeger_endpoint.split(":")[1])
-            if ":" in jaeger_endpoint
-            else 14268,
-        )
-        jaeger_processor = BatchSpanProcessor(jaeger_exporter)
+        endpoint = self.config.jaeger_endpoint
+        otlp_exporter = OTLPSpanExporter(endpoint=endpoint, insecure=True)
+        otlp_processor = BatchSpanProcessor(otlp_exporter)
         if self.tracer_provider:
-            self.tracer_provider.add_span_processor(jaeger_processor)
-        logger.info("Added Jaeger span exporter", endpoint=jaeger_endpoint)
+            self.tracer_provider.add_span_processor(otlp_processor)
+        logger.info("Added OTLP span exporter", endpoint=endpoint)
 
     @handle_exceptions(logger=logger, context="auto-instrumentation setup")
     def _setup_auto_instrumentation(self) -> None:
