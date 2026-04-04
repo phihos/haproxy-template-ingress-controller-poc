@@ -133,9 +133,7 @@ def test_otlp_exporter_configuration(monkeypatch):
     manager.initialize()
 
     # Verify OTLP exporter was configured
-    mock_otlp_exporter.assert_called_once_with(
-        endpoint="localhost:4317", insecure=True
-    )
+    mock_otlp_exporter.assert_called_once_with(endpoint="localhost:4317", insecure=True)
     # Verify the span processor was added
     mock_tracer_provider.add_span_processor.assert_called_once()
 
