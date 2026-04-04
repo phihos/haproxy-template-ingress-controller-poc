@@ -149,19 +149,13 @@ async def test_render_error_handling(mock_render_haproxy_templates):
     # Configure the mock to raise an exception using helper
     mock_render_haproxy_templates.side_effect = Exception("Test error")
 
-    debouncer = create_debouncer(MIN_INTERVAL_SHORT, MIN_INTERVAL_LONG)
-
-    await debouncer.start()
-
-    try:
+    async with managed_debouncer(MIN_INTERVAL_SHORT, MIN_INTERVAL_LONG) as debouncer:
         # Trigger rendering
         await debouncer.trigger()
-        await asyncio.sleep(SLEEP_SHORT)
+        await asyncio.sleep(SLEEP_LONG)
 
         # Should have attempted render despite error
         assert mock_render_haproxy_templates.call_count >= 1
-    finally:
-        await debouncer.stop()
 
 
 @pytest.mark.asyncio
