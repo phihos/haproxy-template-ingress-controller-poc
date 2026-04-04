@@ -221,19 +221,19 @@ jobs:
         run: uv sync --group dev
 
       - name: Download unit test coverage
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: coverage-unit
           path: ./coverage-unit/
 
       - name: Download integration test coverage  
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: coverage-integration
           path: ./coverage-integration/
 
       - name: Download acceptance test coverage
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: coverage-acceptance
           path: ./coverage-acceptance/
