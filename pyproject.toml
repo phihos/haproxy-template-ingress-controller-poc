@@ -1,7 +1,7 @@
 [project]
 name = "haproxy-template-ic"
 version = "0.1.0"
-description = "Add your description here"
+description = "HAProxy template-based Kubernetes ingress controller proof of concept"
 requires-python = ">=3.13"
 dependencies = [
     "aiohttp-retry>=2.9.1",

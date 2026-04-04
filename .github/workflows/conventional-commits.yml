@@ -13,7 +13,7 @@ jobs:
           fetch-depth: 0
       
       - name: Check commits
-        uses: commitizen-tools/commitizen-action@master
+        uses: commitizen-tools/commitizen-action@0.27.1 # 338bbd8
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           check_only: true
