@@ -69,7 +69,7 @@ jobs:
             type=raw,value=${{ steps.meta.outputs.version }}
 
       - name: Build and push (multi-arch)
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           push: true
@@ -82,7 +82,7 @@ jobs:
             PYTHON_VERSION=3.13
 
       - name: Export image tar (amd64)
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           push: false
@@ -94,7 +94,7 @@ jobs:
           outputs: type=tar,dest=/tmp/image-amd64.tar
 
       - name: Export image tar (arm64)
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           push: false
