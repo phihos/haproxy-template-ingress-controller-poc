@@ -1436,15 +1436,15 @@ wheels = [
 
 [[package]]
 name = "prometheus-async"
-version = "25.1.0"
+version = "26.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "prometheus-client" },
     { name = "wrapt" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/37/38/70567994cce643dcd1845d52e8870d91e24b69f49f59381ed523c06d0650/prometheus_async-25.1.0.tar.gz", hash = "sha256:968e29b5255af57bc8146ade132e7aa0a21fe2b4d95ffefc7c732e9c3fbbb1dd", size = 36469, upload-time = "2025-02-08T10:24:20.505Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/3a/36/b28785a5639095d889f04bf06bf0e89cb700a2766604f03f6445d0bac4ad/prometheus_async-26.1.0.tar.gz", hash = "sha256:71b0868ed95ddb3bf8275b19e681f8730ac2a9a0e2df06923ebc4943dcc1b83b", size = 38631, upload-time = "2026-03-24T15:48:50.418Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f7/45/ce7e7c879e7dbb1713f29a666e40285d3b25f7c431fa2c7a771aadc9183a/prometheus_async-25.1.0-py3-none-any.whl", hash = "sha256:4dfa4d85fbbf3fc052a87c7a221a68d4a1d6bd39d31723ac935304dacaedaf69", size = 18253, upload-time = "2025-02-08T10:24:17.23Z" },
+    { url = "https://files.pythonhosted.org/packages/27/03/2b2a24228a5fef41fa727c83880efc097be318ba7e247d2243c222bba235/prometheus_async-26.1.0-py3-none-any.whl", hash = "sha256:fde2ab74a5a7df2b9a93666d68bae4c760950e71f50786645d3b26e2cd749a36", size = 18289, upload-time = "2026-03-24T15:48:49.176Z" },
 ]
 
 [[package]]
